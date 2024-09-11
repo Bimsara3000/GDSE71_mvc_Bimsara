@@ -19,6 +19,23 @@ public class CustomerDto {
     private String province;
     private int postalCode;
 
+    public CustomerDto() {
+    }
+
+    public CustomerDto(String id, String title, String name, String dob, double salary, String address, String city, String province, int postalCode) {
+        this.id = id;
+        this.title = title;
+        this.name = name;
+        this.dob = dob;
+        this.salary = salary;
+        this.address = address;
+        this.city = city;
+        this.province = province;
+        this.postalCode = postalCode;
+    }
+    
+    
+
     /**
      * @return the id
      */
