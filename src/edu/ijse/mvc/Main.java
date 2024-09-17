@@ -4,7 +4,7 @@
  */
 package edu.ijse.mvc;
 
-import edu.ijse.mvc.db.DBConnection;
+import edu.ijse.mvc.view.LayoutFrame;
 import java.sql.SQLException;
 
 /**
@@ -15,10 +15,14 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        System.out.println("Hello!");
-        DBConnection.getInstance().getConnection();
+           LayoutFrame l1 = new LayoutFrame();
+           l1.setLocationRelativeTo(null);
+           l1.setSize(1067, 662);
+           
+           l1.setVisible(true);
     }
-    
 }

@@ -58,7 +58,7 @@ public class CustomerModel {
     
     public String deleteCustomer(String id) throws Exception{
         Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "DELETE Customer WHERE CustID = ?";
+        String sql = "DELETE FROM Customer WHERE CustID = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         
         statement.setString(1, id);

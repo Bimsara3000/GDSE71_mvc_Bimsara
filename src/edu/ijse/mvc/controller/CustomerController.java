@@ -35,7 +35,7 @@ public class CustomerController {
         return customerDto;
     }
     
-    public List<CustomerDto> getAllCustomer(String id) throws Exception {
+    public List<CustomerDto> getAllCustomer() throws Exception {
         List<CustomerDto> dtos = customerModel.getAllCustomer();
         return dtos;
     }
