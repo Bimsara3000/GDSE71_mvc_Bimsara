@@ -31,6 +31,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         navigationPanel = new javax.swing.JPanel();
         btnCustomer = new javax.swing.JButton();
         btnItem = new javax.swing.JButton();
+        btnOrders = new javax.swing.JButton();
         bodyPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,6 +72,14 @@ public class LayoutFrame extends javax.swing.JFrame {
             }
         });
 
+        btnOrders.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnOrders.setText("Manage Orders");
+        btnOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout navigationPanelLayout = new javax.swing.GroupLayout(navigationPanel);
         navigationPanel.setLayout(navigationPanelLayout);
         navigationPanelLayout.setHorizontalGroup(
@@ -79,7 +88,8 @@ public class LayoutFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(navigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(btnItem, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                    .addComponent(btnItem, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .addComponent(btnOrders, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                 .addContainerGap())
         );
         navigationPanelLayout.setVerticalGroup(
@@ -89,7 +99,9 @@ public class LayoutFrame extends javax.swing.JFrame {
                 .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnItem, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(364, Short.MAX_VALUE))
         );
 
         bodyPanel.setPreferredSize(new java.awt.Dimension(825, 525));
@@ -139,6 +151,10 @@ public class LayoutFrame extends javax.swing.JFrame {
         loadItemForm();
     }//GEN-LAST:event_btnItemActionPerformed
 
+    private void btnOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdersActionPerformed
+        loadOrdersForm();
+    }//GEN-LAST:event_btnOrdersActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -178,6 +194,7 @@ public class LayoutFrame extends javax.swing.JFrame {
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnItem;
+    private javax.swing.JButton btnOrders;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel navigationPanel;
@@ -197,6 +214,15 @@ public class LayoutFrame extends javax.swing.JFrame {
         ItemPanel itemPanel = new ItemPanel();
         itemPanel.setSize(bodyPanel.getWidth(), bodyPanel.getHeight());
         bodyPanel.add(itemPanel);
+        bodyPanel.repaint();
+        bodyPanel.revalidate();
+    }
+    
+    private void loadOrdersForm() {
+        bodyPanel.removeAll();
+        OrdersPanel ordersPanel = new OrdersPanel();
+        ordersPanel.setSize(bodyPanel.getWidth(), bodyPanel.getHeight());
+        bodyPanel.add(ordersPanel);
         bodyPanel.repaint();
         bodyPanel.revalidate();
     }
