@@ -6,12 +6,16 @@ package edu.ijse.mvc.view;
 
 import edu.ijse.mvc.controller.CustomerController;
 import edu.ijse.mvc.controller.ItemController;
+import edu.ijse.mvc.controller.OrderController;
 import edu.ijse.mvc.dto.CustomerDto;
 import edu.ijse.mvc.dto.ItemDto;
+import edu.ijse.mvc.dto.OrderDetailDto;
+import edu.ijse.mvc.dto.OrderDto;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 /**
  *
  * @author bimsara
@@ -20,6 +24,8 @@ public class OrdersPanel extends javax.swing.JPanel {
     
     private CustomerController customerController = new CustomerController();
     private ItemController itemController = new ItemController();
+    private OrderController orderController = new OrderController();
+    private ArrayList<OrderDetailDto> orderDetailDtos = new ArrayList<>();
 
     /**
      * Creates new form OrdersPanel
@@ -109,6 +115,11 @@ public class OrdersPanel extends javax.swing.JPanel {
 
         btnPlaceOrder.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         btnPlaceOrder.setText("Place Order");
+        btnPlaceOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlaceOrderActionPerformed(evt);
+            }
+        });
 
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -228,6 +239,10 @@ public class OrdersPanel extends javax.swing.JPanel {
         addToCart();
     }//GEN-LAST:event_btnAddToCart1ActionPerformed
 
+    private void btnPlaceOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaceOrderActionPerformed
+        placeOrder();
+    }//GEN-LAST:event_btnPlaceOrderActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToCart1;
@@ -292,17 +307,53 @@ public class OrdersPanel extends javax.swing.JPanel {
         tblCart.setModel(dtm);
     }
     
-    public void addToCart() {
-        String[] columns = {txtItemCode.getText(),txtQty.getText(), txtDiscount.getText()};
-        DefaultTableModel dtm = (DefaultTableModel)tblCart.getModel();
-        dtm.addRow(columns);
-        clearItem();
+    private void addToCart() {
+        try {
+            OrderDetailDto dto = new OrderDetailDto();
+            dto.setItemCode(txtItemCode.getText());
+            dto.setQty(Integer.parseInt(txtQty.getText()));
+            dto.setDiscount(Double.parseDouble(txtDiscount.getText()));
+            
+            orderDetailDtos.add(dto);
+            
+            Object[] rowData = {dto.getItemCode(), dto.getQty(), dto.getDiscount()};
+            DefaultTableModel dtm = (DefaultTableModel)tblCart.getModel();
+            dtm.addRow(rowData);
+            clearItem();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+                
     }
     
-    public void clearItem() {
+    private void clearItem() {
         txtItemCode.setText("");
         txtQty.setText("");
         txtDiscount.setText("");
         lblItemDetail.setText("");
+    }
+    
+    private void placeOrder() {
+        try {
+            OrderDto orderDto = new OrderDto();
+            orderDto.setOrderId(txtOrdersId.getText());
+            orderDto.setCustId(txtCustomerId.getText());
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date = sdf.format(new Date());
+            orderDto.setOrderDate(date);
+            
+            orderDto.setOrderDetailDtos(orderDetailDtos);
+
+            String resp = orderController.placeOrder(orderDto);
+            JOptionPane.showMessageDialog(this, resp);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
     }
 }
